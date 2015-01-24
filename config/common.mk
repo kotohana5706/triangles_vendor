@@ -142,7 +142,7 @@ PRODUCT_PACKAGES += \
     Launcher3 \
     Trebuchet \
     AudioFX \
-    CMWallpapers \
+    TTAWallpapers \
     CMFileManager \
     Eleven \
     LockClock \
@@ -285,10 +285,30 @@ else
     endif
 endif
 
+# TRIANGLES MOD_VERSION
+PRODUCT_NAME = TRIANGLES
+ANDROID_CODENAME = 5.0.2
+TRIANGLES_BUILDTYPE = BETA1
+TRIANGLES_DEFAULT_VERSION = BETA1
+TRIANGLES_MAJORVERSION = v3
+TRIANGLES_MINORVERSION = 0
+
+ifndef TRIANGLES_MODVERSION
+	TRIANGLES_MODVERSION := $(PRODUCT_NAME)-$(ANDROID_CODENAME)-$(TRIANGLES_BUILDTYPE)-$(TRIANGLES_MAJORVERSION).$(TRIANGLES_MINORVERSION)-$(CM_BUILD)-$(shell date -u +%Y%m%d)
+endif
+
+ifndef TRIANGLES_CENTER_MODVERSION
+	TRIANGLES_CENTER_MODVERSION := $(TRIANGLES_MAJORVERSION).$(TRIANGLES_MINORVERSION)-$(TRIANGLES_DEFAULT_VERSION)-$(shell date -u +%Y%m%d)
+endif
+
+#아래에 그거
+#  ro.cm.version=$(CM_VERSION) 
+#  ro.cm.releasetype=$(CM_BUILDTYPE) 
+#  ro.modversion=$(CM_VERSION) 
+
 PRODUCT_PROPERTY_OVERRIDES += \
-  ro.cm.version=$(CM_VERSION) \
-  ro.cm.releasetype=$(CM_BUILDTYPE) \
-  ro.modversion=$(CM_VERSION) \
+	ro.tta.modversion=$(TRIANGLES_MODVERSION) \
+	ro.tta.center.version=$(TRIANGLES_CENTER_MODVERSION) \
   ro.cmlegal.url=https://www.cyanogenmod.org/docs/privacy
 
 -include vendor/cm-priv/keys/keys.mk
