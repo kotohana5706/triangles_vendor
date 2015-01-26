@@ -71,10 +71,6 @@ ifneq ($(TARGET_BUILD_VARIANT),eng)
 ADDITIONAL_DEFAULT_PROPERTIES += ro.adb.secure=1
 endif
 
-# Copy over the changelog to the device
-PRODUCT_COPY_FILES += \
-    vendor/cm/CHANGELOG.mkdn:system/etc/CHANGELOG-CM.txt
-
 # Backup Tool
 ifneq ($(WITH_GMS),true)
 PRODUCT_COPY_FILES += \
@@ -142,10 +138,7 @@ PRODUCT_PACKAGES += \
     TTAWallpapers \
     CMFileManager \
     Eleven \
-    LockClock \
-    CMUpdater \
-    CMAccount \
-    CMHome
+    LockClock 
 
 # CM Hardware Abstraction Framework
 PRODUCT_PACKAGES += \
@@ -211,10 +204,6 @@ PRODUCT_PROPERTY_OVERRIDES += \
     persist.sys.root_access=0
 
 PRODUCT_PACKAGE_OVERLAYS += vendor/cm/overlay/common
-
-PRODUCT_VERSION_MAJOR = 12
-PRODUCT_VERSION_MINOR = 0
-PRODUCT_VERSION_MAINTENANCE = 0-RC0
 
 # Set CM_BUILDTYPE from the env RELEASE_TYPE, for jenkins compat
 
@@ -298,15 +287,12 @@ ifndef TRIANGLES_CENTER_MODVERSION
 	TRIANGLES_CENTER_MODVERSION := $(TRIANGLES_MAJORVERSION).$(TRIANGLES_MINORVERSION)-$(TRIANGLES_DEFAULT_VERSION)-$(shell date -u +%Y%m%d)
 endif
 
-#아래에 그거
-#  ro.cm.version=$(CM_VERSION) 
-#  ro.cm.releasetype=$(CM_BUILDTYPE) 
-#  ro.modversion=$(CM_VERSION) 
+
 
 PRODUCT_PROPERTY_OVERRIDES += \
 	ro.tta.modversion=$(TRIANGLES_MODVERSION) \
 	ro.tta.center.version=$(TRIANGLES_CENTER_MODVERSION) \
-  ro.cmlegal.url=https://www.cyanogenmod.org/docs/privacy
+	ro.cmlegal.url=https://www.cyanogenmod.org/docs/privacy
 
 -include vendor/cm-priv/keys/keys.mk
 
@@ -333,9 +319,6 @@ endif
 
 # by default, do not update the recovery with system updates
 PRODUCT_PROPERTY_OVERRIDES += persist.sys.recovery_update=false
-
-PRODUCT_PROPERTY_OVERRIDES += \
-  ro.cm.display.version=$(CM_DISPLAY_VERSION)
 
 -include $(WORKSPACE)/build_env/image-auto-bits.mk
 
